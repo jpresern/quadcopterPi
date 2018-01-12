@@ -73,7 +73,6 @@ class motor(object):
         self.kv = kv
         self.mass = 0.050  # [kg]
 
-
         if ada:
             try:
                 import Adafruit_PCA9685
