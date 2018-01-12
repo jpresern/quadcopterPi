@@ -56,7 +56,7 @@ class motor(object):
     __init_(self, name, pin, kv=1000, WMin=1, WMax=100, debug=True, simulation=True):
     More info on RPIO in http://pythonhosted.org/RPIO/index.html"""
 
-    def __init__(self, name, pin, kv=1000, WMin=0, WMax=100, debug=True, simulation=True):
+    def __init__(self, name, pin, kv=1000, WMin=0, WMax=100, debug=True, simulation=True, ada=True):
         self.logger = logging.getLogger('myQ.motor')
         self.name = name
         self.powered = False
@@ -73,13 +73,23 @@ class motor(object):
         self.kv = kv
         self.mass = 0.050  # [kg]
 
-        try:
-            from RPIO import PWM
-            #here just check that library is available
-            self.PWM = PWM
-        except ImportError, strerror:
-            self.simulation = True
-            self.logger.error('Error: Motor NOT initiazized. %s', strerror)
+
+        if ada:
+            try:
+                import Adafruit_PCA9685
+                pwm = Adafruit_PCA9685.PCA9685()
+                self.PWM = pwm
+            except ImportError:
+                self.logger.error('Error: No Adafruit')
+
+        else:
+            try:
+                from RPIO import PWM
+                #here just check that library is available
+                self.PWM = PWM
+            except ImportError:
+                self.simulation = True
+                self.logger.error('Error: Motor NOT initiazized. %s')
 
     def setWLimits(self, WMin, WMax):
         "set the pin for each motor"

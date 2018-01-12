@@ -73,12 +73,12 @@ class netscan(threading.Thread):
 
     def scanAll(self, subip='192.168.0.'):
         res = ''
-        for i in xrange(254):
+        for i in range(254):
             ip = subip + str(i)
             if  ping_one(ip, self.timeout) >= 0:
                 res = ip + '<<<<<OK \n'
-                print res
+                print(res)
             else:
                 res = ip + '<NO\n'
-                print res
+                print(res)
 
