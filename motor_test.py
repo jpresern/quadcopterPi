@@ -69,7 +69,7 @@ args = parser.parse_args()
 initEsc = args.initEsc
 gpio = args.gpio
 
-logger = setupLogger('myQ')
+# logger = setupLogger('myQ')
 
 print ('gpio: '+str(gpio))
 print ('initEsc: '+str(initEsc))
@@ -79,7 +79,7 @@ mymotor = motor('m1', gpio, simulation=False)
 #GPIO23 = pin 16
 #GPIO24 = pin 18
 #GPIO25 = pin 22
-
+#ada0 = pin 0
 
 mySensor = sensor()
 mySensor.start()
